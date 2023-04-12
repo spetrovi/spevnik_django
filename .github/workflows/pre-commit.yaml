@@ -1,0 +1,19 @@
+---
+name: Run Pre Commit
+on:
+  pull_request:
+
+jobs:
+  pre-commit:
+    name: Pre Commit Hooks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install pre-commit
+      run: pip install pre-commit
+    - name: Install requirements
+      run: pip install -r requirements.txt
+    - name: State to use Workspace Dir
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    - name: Run pre-commit on entire codebase
+      run: pre-commit run --show-diff-on-failure --color=always --all-files
