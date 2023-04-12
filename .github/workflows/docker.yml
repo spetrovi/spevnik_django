@@ -1,7 +1,9 @@
 name: Publish Docker image
 
 on:
-  push:
+  release:
+    # trigger on pre-release and released
+    types: [published]
 
 jobs:
   push_to_registry:
