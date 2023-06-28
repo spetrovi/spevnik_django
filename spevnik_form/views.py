@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .forms import SongForm
 from .forms import NameForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
-    
+
+
 def get_name(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -24,13 +25,13 @@ def get_name(request):
         form = NameForm()
 
     return render(request, "name.html", {"form": form})
-    
+
+
 def create_song(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SongForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect or perform any other action upon successful form submission
     else:
         form = SongForm()
-    return render(request, 'song_form.html', {'form': form})    
+    return render(request, "song_form.html", {"form": form})
